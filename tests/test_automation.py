@@ -28,3 +28,16 @@ def test_google_title(page):
 def test_orangehrm_title(page):
     page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
     assert page.title() == "OrangeHRM"
+
+
+@pytest.mark.parametrize('username,password', [('testuser1', 'testpwd1'), ('testuser2', 'testpwd2')])
+def test_invalid_orangehrm_login(page, username, password):
+    page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
+    page.wait_for_selector('//input[@name="username"]').fill(username)
+    page.wait_for_selector('//input[@placeholder="Password"]').fill(password)
+    page.wait_for_selector('//button[@type="submit"]').click()
+
+    page.wait_for_timeout(2000)
+
+    error = page.wait_for_selector('//div[@role="alert"]//p').text_content()
+    assert "Invalid credentials" == error
