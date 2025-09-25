@@ -20,6 +20,10 @@ with sync_playwright() as p:
     # Xpath selector Xpath - //input[@id="email"] //img[@id="enterimg"]
 
     page.locator('//input[@id="email"]').fill("test12321@example.com")
+
+    # wait_for_selector will wait implicitely but locator will not
+    # Explicit wait
+    page.locator('//img[@id="enterimg"]').wait_for()
     page.locator('//img[@id="enterimg"]').click()
 
     print(page.title())
