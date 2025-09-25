@@ -41,3 +41,19 @@ def test_invalid_orangehrm_login(page, username, password):
 
     error = page.wait_for_selector('//div[@role="alert"]//p').text_content()
     assert "Invalid credentials" == error
+
+
+@pytest.mark.parametrize('username,password', [('Admin', 'admin123')])
+def test_success_orangehrm_login(page, username, password):
+    page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
+    page.wait_for_selector('//input[@name="username"]').fill(username)
+    page.wait_for_selector('//input[@placeholder="Password"]').fill(password)
+    page.wait_for_selector('//button[@type="submit"]').click()
+
+    page.wait_for_timeout(2000)
+    # CSS selector by class (.)
+    dashboard_breadcrumb = page.wait_for_selector(
+        '.oxd-topbar-header-breadcrumb-module')
+    dashboard_name = dashboard_breadcrumb.text_content()
+    print("Dashboard name:", dashboard_name)
+    assert "Dashboard" == dashboard_name
