@@ -9,9 +9,15 @@ with sync_playwright() as p:
     page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
 
     # CSS Selector with attribute
-    page.wait_for_selector('input[name="username"]').fill("Admin")
-    page.wait_for_selector('input[type="password"]').fill("admin123")
-    page.wait_for_selector('button[type="submit"]').click()
+    # page.wait_for_selector('input[name="username"]').fill("Admin")
+    # page.wait_for_selector('input[type="password"]').fill("admin123")
+    # page.wait_for_selector('button[type="submit"]').click()
+
+    # Using Xpath //input[@name="username"] //input[@placeholder="Password"] //button[@type="submit"]
+
+    page.wait_for_selector('//input[@name="username"]').fill("Admin")
+    page.wait_for_selector('//input[@placeholder="Password"]').fill("admin123")
+    page.wait_for_selector('//button[@type="submit"]').click()
 
     print(page.title())
 
