@@ -11,11 +11,16 @@ with sync_playwright() as p:
     # CSS Selector
     # by id #, by class .
 
-    emailtextbox = page.wait_for_selector('#email')
-    emailtextbox.fill("test123@email.com")
+    # emailtextbox = page.wait_for_selector('#email')
+    # emailtextbox.fill("test123@email.com")
 
-    button = page.wait_for_selector('#enterimg')
-    button.click()
+    # button = page.wait_for_selector('#enterimg')
+    # button.click()
+
+    # Xpath selector Xpath - //input[@id="email"] //img[@id="enterimg"]
+
+    page.locator('//input[@id="email"]').fill("test12321@example.com")
+    page.locator('//img[@id="enterimg"]').click()
 
     print(page.title())
 
